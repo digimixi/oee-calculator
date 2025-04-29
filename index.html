@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OEE 計算機</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>OEE 計算機</h1>
+        <p class="description">OEE (Overall Equipment Effectiveness) 是衡量設備生產效率的指標，由可用性、性能和品質三個因素相乘得出。</p>
+        
+        <div class="calculator">
+            <div class="section">
+                <h2>可用性 (Availability)</h2>
+                <div class="input-group">
+                    <label for="planned-production-time">計劃生產時間 (分鐘):</label>
+                    <input type="number" id="planned-production-time" min="0" value="480">
+                </div>
+                <div class="input-group">
+                    <label for="downtime">停機時間 (分鐘):</label>
+                    <input type="number" id="downtime" min="0" value="60">
+                </div>
+                <div class="result">
+                    <span>可用性:</span>
+                    <span id="availability-result">87.5%</span>
+                </div>
+            </div>
+            
+            <div class="section">
+                <h2>性能 (Performance)</h2>
+                <div class="input-group">
+                    <label for="ideal-cycle-time">理想週期時間 (秒/件):</label>
+                    <input type="number" id="ideal-cycle-time" min="0" step="0.01" value="30">
+                </div>
+                <div class="input-group">
+                    <label for="total-pieces">生產總件數:</label>
+                    <input type="number" id="total-pieces" min="0" value="700">
+                </div>
+                <div class="result">
+                    <span>性能:</span>
+                    <span id="performance-result">87.5%</span>
+                </div>
+            </div>
+            
+            <div class="section">
+                <h2>品質 (Quality)</h2>
+                <div class="input-group">
+                    <label for="total-production">生產總件數:</label>
+                    <input type="number" id="total-production" min="0" value="700">
+                </div>
+                <div class="input-group">
+                    <label for="defective-pieces">不良品數量:</label>
+                    <input type="number" id="defective-pieces" min="0" value="35">
+                </div>
+                <div class="result">
+                    <span>品質:</span>
+                    <span id="quality-result">95.0%</span>
+                </div>
+            </div>
+            
+            <div class="section final-result">
+                <h2>OEE 計算結果</h2>
+                <div class="oee-result">
+                    <span>OEE = 可用性 × 性能 × 品質</span>
+                    <span id="oee-result">72.7%</span>
+                </div>
+                <button id="calculate-btn">計算 OEE</button>
+            </div>
+        </div>
+        
+        <div class="explanation">
+            <h2>OEE 解釋</h2>
+            <div class="explanation-content">
+                <p><strong>可用性 (Availability)</strong>: 設備實際運行時間與計劃運行時間的比率。</p>
+                <p><strong>性能 (Performance)</strong>: 實際生產速度與理論最大生產速度的比率。</p>
+                <p><strong>品質 (Quality)</strong>: 合格品數量與總生產數量的比率。</p>
+                <p><strong>OEE 值解讀</strong>:</p>
+                <ul>
+                    <li>100%: 完美生產 (僅生產合格品，以最快速度運行，無停機時間)</li>
+                    <li>85%+: 世界級水平</li>
+                    <li>60%: 相對較好</li>
+                    <li>40%: 較低，有很大改進空間</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
