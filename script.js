@@ -13,6 +13,14 @@ document.addEventListener('DOMContentLoaded', function() {
                 document.getElementById('total-pieces').value = this.value;
             }
             
+            // 如果最大操作時間或計畫停機時間變更，更新計劃生產時間
+            if (this.id === 'max-operation-time' || this.id === 'planned-downtime') {
+                const maxOperationTime = parseFloat(document.getElementById('max-operation-time').value) || 0;
+                const plannedDowntime = parseFloat(document.getElementById('planned-downtime').value) || 0;
+                const loadingTime = maxOperationTime - plannedDowntime;
+                document.getElementById('planned-production-time').value = loadingTime > 0 ? loadingTime : 0;
+            }
+            
             // 即時計算結果
             calculateOEE();
         });
@@ -23,6 +31,13 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // 計算 OEE 函數
     function calculateOEE() {
+        // 獲取時間參數
+        const maxOperationTime = parseFloat(document.getElementById('max-operation-time').value) || 0;
+        const plannedDowntime = parseFloat(document.getElementById('planned-downtime').value) || 0;
+        
+        // 計算負荷時間/計畫工作時間
+        const loadingTime = maxOperationTime - plannedDowntime;
+        
         // 獲取可用性參數
         const plannedProductionTime = parseFloat(document.getElementById('planned-production-time').value) || 0;
         const downtime = parseFloat(document.getElementById('downtime').value) || 0;
@@ -35,8 +50,10 @@ document.addEventListener('DOMContentLoaded', function() {
         const totalProduction = parseInt(document.getElementById('total-production').value) || 0;
         const defectivePieces = parseInt(document.getElementById('defective-pieces').value) || 0;
         
-        // 計算可用性
+        // 計算稼動時間
         const runTime = plannedProductionTime - downtime;
+        
+        // 計算可用性
         const availability = plannedProductionTime > 0 ? runTime / plannedProductionTime : 0;
         
         // 計算性能
@@ -51,6 +68,9 @@ document.addEventListener('DOMContentLoaded', function() {
         const oee = availability * performance * quality;
         
         // 更新結果顯示
+        document.getElementById('loading-time-result').textContent = loadingTime.toFixed(0) + '分鐘';
+        document.getElementById('running-time-result').textContent = runTime.toFixed(0) + '分鐘';
+        document.getElementById('good-pieces-result').textContent = goodPieces + '件';
         document.getElementById('availability-result').textContent = formatPercentage(availability);
         document.getElementById('performance-result').textContent = formatPercentage(performance);
         document.getElementById('quality-result').textContent = formatPercentage(quality);
