@@ -13,17 +13,37 @@
         
         <div class="calculator">
             <div class="section">
+                <h2>時間計算</h2>
+                <div class="input-group">
+                    <label for="max-operation-time">最大操作時間 (分鐘):</label>
+                    <input type="number" id="max-operation-time" min="0" value="600">
+                </div>
+                <div class="input-group">
+                    <label for="planned-downtime">計畫停機時間 (分鐘):</label>
+                    <input type="number" id="planned-downtime" min="0" value="120">
+                </div>
+                <div class="result">
+                    <span>負荷時間/計畫工作時間:</span>
+                    <span id="loading-time-result">480分鐘</span>
+                </div>
+            </div>
+            
+            <div class="section">
                 <h2>可用性 (Availability)</h2>
                 <div class="input-group">
                     <label for="planned-production-time">計劃生產時間 (分鐘):</label>
                     <input type="number" id="planned-production-time" min="0" value="480">
                 </div>
                 <div class="input-group">
-                    <label for="downtime">停機時間 (分鐘):</label>
+                    <label for="downtime">非計畫停機時間 (分鐘):</label>
                     <input type="number" id="downtime" min="0" value="60">
                 </div>
                 <div class="result">
-                    <span>可用性:</span>
+                    <span>稼動時間:</span>
+                    <span id="running-time-result">420分鐘</span>
+                </div>
+                <div class="result">
+                    <span>可用性/稼動率:</span>
                     <span id="availability-result">87.5%</span>
                 </div>
             </div>
@@ -39,7 +59,7 @@
                     <input type="number" id="total-pieces" min="0" value="700">
                 </div>
                 <div class="result">
-                    <span>性能:</span>
+                    <span>性能/產能效率:</span>
                     <span id="performance-result">87.5%</span>
                 </div>
             </div>
@@ -55,7 +75,11 @@
                     <input type="number" id="defective-pieces" min="0" value="35">
                 </div>
                 <div class="result">
-                    <span>品質:</span>
+                    <span>良品數量:</span>
+                    <span id="good-pieces-result">665件</span>
+                </div>
+                <div class="result">
+                    <span>品質/良率:</span>
                     <span id="quality-result">95.0%</span>
                 </div>
             </div>
@@ -73,9 +97,11 @@
         <div class="explanation">
             <h2>OEE 解釋</h2>
             <div class="explanation-content">
-                <p><strong>可用性 (Availability)</strong>: 設備實際運行時間與計劃運行時間的比率。</p>
-                <p><strong>性能 (Performance)</strong>: 實際生產速度與理論最大生產速度的比率。</p>
-                <p><strong>品質 (Quality)</strong>: 合格品數量與總生產數量的比率。</p>
+                <p><strong>最大操作時間</strong>: 在特定時間內，設備實際能花費多少時間運轉。如果該設備完全由工廠內使用，則最大操作時間為日曆時間。</p>
+                <p><strong>負荷時間/計畫工作時間</strong>: 預期設備可以運轉的時間長度，通常是最大操作時間減掉計畫中的停機時間（如休假、進行機器保養等）。</p>
+                <p><strong>可用性/稼動率 (Availability/Uptime)</strong>: 也被稱為「產能利用率」或「時間稼動率」，是設備實際運轉時間的百分比。計算公式：稼動時間 = 負荷時間 - 停機時間；稼動率 = (稼動時間 ÷ 負荷時間) × 100%。稼動率可能超過100%，例如加班生產時，但並非越高越好，過高可能導致庫存過多。</p>
+                <p><strong>性能/產能效率 (Performance)</strong>: 又稱為性能稼動率，用於檢視設備製造的速度，是在不考慮品質的情況下，實際生產速度和標準生產速度的比率。</p>
+                <p><strong>品質/良率 (Quality)</strong>: 也稱良品率 First Pass Yield (FPY)，用於檢視不良產品、二次返工、產品報廢所造成的損失，是有效的良品數和實際生產數的比率。</p>
                 <p><strong>OEE 值解讀</strong>:</p>
                 <ul>
                     <li>100%: 完美生產 (僅生產合格品，以最快速度運行，無停機時間)</li>
